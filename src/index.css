@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+
+  /* === PALETTE === */
+  --copper-green-light: #b5e8dc;
+  --copper-green-med: #8ecda2;
+  --copper-green-med-dark: #2b5b54;
+  --copper-green-dark: #377464;
+  --copper-green-black: #114537;
+  --copper-blue-dark: #014a50;
+  --copper-blue-black: #003135;
+  --copper-brown-med: #b87333;
+  --copper-brown-light: #cc8d67;
+
+  /* === BASE THEME === */
+  --color-bg-primary: var(--copper-green-black);
+  --color-bg-secondary: var(--copper-blue-black);
+  --color-bg-tertiary: #374151;
+  --color-bg-muted: #4b5563;
+
+  --color-text-primary: var(--copper-green-light);
+  --color-text-secondary: var(--copper-green-med);
+  --color-text-muted: var(--color-green-dark);
+
+  --color-border: #374151;
+  --color-border-light: #4b5563;
+
+  /* === BOROUGH COLORS === */
+  --color-manhattan: #ef4444;
+  --color-brooklyn: #22c55e;
+  --color-queens: #3b82f6;
+  --color-bronx: #f59e0b;
+  --color-staten-island: #8b5cf6;
+
+  /* === UI COLORS === */
+  --color-primary: var(--color-green-dark);
+  --color-primary-hover: var(--copper-green-dark);
+  --color-primary-dark:var(--copper-green-med-dark);
+  --color-secondary: var(--color-green-dark);
+  --color-secondary-hover: var(--copper-green-dark);
+  --color-secondary-dark:var(--copper-green-med-dark);
+
+  /* === BUTTON COLORS (for mode select) === */
+  --color-btn-daily: var(--copper-green-dark);
+  --color-btn-daily-hover: var(--copper-green-med-dark);
+  --color-btn-daily-accent: var(--copper-green-light);
+  --color-btn-daily-muted: var(--copper-green-med-dark);
+
+  --color-btn-endless: var(--copper-green-dark);
+  --color-btn-endless-hover: var(--copper-green-med-dark);
+  --color-btn-endless-accent: var(--copper-green-light);
+  --color-btn-endless-muted: var(--copper-green-med-dark);
+
+  --color-toggle-hard: var(--copper-brown-med);
+  --color-toggle-easy: var(--copper-green-med);
+
+  /* === STATE COLORS === */
+  --color-success: #22c55e;
+  --color-success-dark: #16a34a;
+  --color-error: #ef4444;
+  --color-error-dark: #dc2626;
+  --color-warning: #f59e0b;
+
+  /* === GAME SPECIFIC === */
+  --color-guess-marker: #ef4444;
+  --color-actual-marker: #22c55e;
+  --color-distance-line: #f59e0b;
+  --color-marker-stroke: #ffffff;
+
+  /* === OVERLAYS === */
+  --color-overlay-dark: rgba(0, 0, 0, 0.8);
+  --color-overlay-darker: rgba(0, 0, 0, 0.9);
+
+  /* === DEV MODE === */
+  --color-invalid: #666666;
+  --color-invalid-stroke: #333333;
+}
+
+/* Extend Tailwind with custom colors */
+@theme {
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+  --color-bg-muted: var(--color-bg-muted);
+
+  --color-manhattan: var(--color-manhattan);
+  --color-brooklyn: var(--color-brooklyn);
+  --color-queens: var(--color-queens);
+  --color-bronx: var(--color-bronx);
+  --color-staten-island: var(--color-staten-island);
+
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-hover: var(--color-secondary-hover);
+
+  --color-success: var(--color-success);
+  --color-success-dark: var(--color-success-dark);
+  --color-error: var(--color-error);
+  --color-error-dark: var(--color-error-dark);
+  --color-warning: var(--color-warning);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-bg-primary);
+}
+
+#root {
+  min-height: 100vh;
+}

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(ls:*)",
+      "Bash(npm run build:*)",
+      "WebFetch(domain:data.cityofnewyork.us)",
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:services5.arcgis.com)",
+      "WebFetch(domain:gist.githubusercontent.com)"
+    ]
+  }
+}
