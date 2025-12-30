@@ -19,7 +19,7 @@ export function ModeSelect({ onSelectDaily, onSelectEndless }: ModeSelectProps) 
 
   const getDailyButtonText = () => {
     if (!dailyProgress) return 'Play';
-    if (dailyProgress.isComplete) return 'Final Score';
+    if (dailyProgress.isComplete) return 'View Results';
     return `Continue (${dailyProgress.roundsPlayed}/12)`;
   };
 
@@ -103,7 +103,7 @@ export function ModeSelect({ onSelectDaily, onSelectEndless }: ModeSelectProps) 
               </div>
               <div className="text-right">
                 <span
-                  className="inline-block px-3 py-3 rounded-full text-sm font-medium text-center"
+                  className="inline-block px-3 py-1 rounded-xl text-sm font-medium text-center"
                   style={{ backgroundColor: 'var(--color-primary)', color: 'var(--color-text-primary)' }}
                 >
                   {getDailyButtonText()}
@@ -132,7 +132,7 @@ export function ModeSelect({ onSelectDaily, onSelectEndless }: ModeSelectProps) 
               </div>
               <div className="text-right">
                 <span
-                  className="inline-block px-3 py-1 rounded-full text-sm font-medium"
+                  className="inline-block px-3 py-1 rounded-xl text-sm font-medium"
                   style={{ backgroundColor: 'var(--color-primary)', color: 'var(--color-text-primary)' }}
                 >
                   Play
