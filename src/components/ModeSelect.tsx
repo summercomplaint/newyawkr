@@ -61,8 +61,8 @@ export function ModeSelect({ onSelectDaily, onSelectEndless }: ModeSelectProps) 
                 </p>
                 <p style={{ color: 'var(--color-text-secondary)' }}>
                   {hardMode
-                    ? "Fixed position, can only zoom and pan"
-                    : "Can move around freely to find clues"}
+                    ? "Fixed position, 60 second time limit"
+                    : "Can move around freely to find clues, unlimited time"}
                 </p>
               </div>
             </div>

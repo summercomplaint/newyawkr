@@ -18,6 +18,7 @@ interface GameProps {
 type GamePhase = 'viewing' | 'results' | 'final';
 
 const MAX_RETRIES = 10; // Maximum attempts to find a location with Street View
+const HARD_MODE_TIME_LIMIT = 60; // 2 minutes in seconds
 
 export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProps) {
   const {
@@ -41,13 +42,44 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
   const [isRetrying, setIsRetrying] = useState(false);
   const [startTime] = useState(() => Date.now());
   const [elapsedTime, setElapsedTime] = useState<number | null>(null);
+  const [roundTimeLeft, setRoundTimeLeft] = useState(HARD_MODE_TIME_LIMIT);
+  const [timerActive, setTimerActive] = useState(false);
   const initializedRef = useRef(false);
   const boroughsRef = useRef(boroughs);
+  const handleConfirmGuessRef = useRef<() => void>(() => {});
 
   // Keep boroughs ref up to date
   useEffect(() => {
     boroughsRef.current = boroughs;
   }, [boroughs]);
+
+  // Start timer when viewing phase begins in hard mode
+  useEffect(() => {
+    if (phase === 'viewing' && hardMode && !isRetrying && !streetViewError) {
+      setTimerActive(true);
+    } else {
+      setTimerActive(false);
+    }
+  }, [phase, hardMode, isRetrying, streetViewError]);
+
+  // Countdown timer for hard mode
+  useEffect(() => {
+    if (!timerActive || !hardMode) return;
+
+    const interval = setInterval(() => {
+      setRoundTimeLeft(prev => {
+        if (prev <= 1) {
+          // Time's up! Auto-submit
+          clearInterval(interval);
+          handleConfirmGuessRef.current();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timerActive, hardMode]);
 
   // Initialize game on mount - only once
   useEffect(() => {
@@ -80,29 +112,39 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
   }, [gameState?.currentRound, gameState?.guesses, gameState?.totalScore, gameState?.isComplete, mode]);
 
   const handleConfirmGuess = useCallback(() => {
-    if (!gameState || !currentGuess) return;
+    if (!gameState) return;
 
     const currentLocation = gameState.locations[gameState.currentRound];
 
-    const distance = calculateDistance(
+    // If no guess was made (timeout), use a default far-away location for 0 points
+    const guessLocation = currentGuess || { lat: 0, lng: 0 };
+    const timedOut = !currentGuess;
+
+    const distance = timedOut ? null : calculateDistance(
       currentLocation.lat,
       currentLocation.lng,
-      currentGuess.lat,
-      currentGuess.lng
+      guessLocation.lat,
+      guessLocation.lng
     );
-    const score = calculateScore(distance);
+    const score = timedOut ? 0 : calculateScore(distance!);
 
     const newGuess: Guess = {
       location: currentLocation,
-      guess: currentGuess,
-      distance,
+      guess: guessLocation,
+      distance: distance ?? 999999,
       score,
     };
 
     setLastGuess(newGuess);
+    setTimerActive(false);
     confirmGuess(mode === 'endless' ? boroughsRef.current : undefined);
     setPhase('results');
   }, [gameState, currentGuess, confirmGuess, mode]);
+
+  // Keep ref updated for timer callback
+  useEffect(() => {
+    handleConfirmGuessRef.current = handleConfirmGuess;
+  }, [handleConfirmGuess]);
 
   const handleNextRound = useCallback(() => {
     if (!gameState) return;
@@ -115,6 +157,7 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
       setStreetViewError(false);
       setRetryCount(0);
       setIsRetrying(false);
+      setRoundTimeLeft(HARD_MODE_TIME_LIMIT); // Reset timer for next round
     }
   }, [gameState?.isComplete, gameState?.currentRound, mode, startTime]);
 
@@ -125,6 +168,7 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
     setStreetViewError(false);
     setRetryCount(0);
     setIsRetrying(false);
+    setRoundTimeLeft(HARD_MODE_TIME_LIMIT); // Reset timer
   }, [resetGame, startEndlessGame]);
 
   const handleStreetViewError = useCallback(() => {
@@ -174,7 +218,7 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
         <div className="flex items-center justify-between max-w-screen-xl mx-auto">
           <button
             onClick={onExit}
-            className="text-[color:var(--maingame-text)]/80 hover:text-[color:var(--maingame-text)] flex items-center gap-2"
+            className="text-[color:var(--maingame-text)]/80 hover:text-[color:var(--maingame-text)] font-bold flex items-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -187,6 +231,16 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
             <p className="text-[color:var(--maingame-text)]/60 text-sm">
               Round {gameState.currentRound + 1} of {mode === 'daily' ? 12 : '∞'}
             </p>
+            {/* Timer for hard mode */}
+            {hardMode && phase === 'viewing' && (
+              <p
+                className={`text-sm font-mono font-bold mt-1 ${
+                  roundTimeLeft <= 30 ? 'text-[color:var(--color-error)]' : 'text-[color:var(--maingame-text)]'
+                }`}
+              >
+                {Math.floor(roundTimeLeft / 60)}:{(roundTimeLeft % 60).toString().padStart(2, '0')}
+              </p>
+            )}
           </div>
 
           <div className="text-right">
