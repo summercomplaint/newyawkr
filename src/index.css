@@ -5,13 +5,15 @@
   /* === PALETTE === */
   --copper-green-light: #b5e8dc;
   --copper-green-med: #8ecda2;
-  --copper-green-med-dark: #2b5b54;
-  --copper-green-dark: #377464;
+  --copper-green-bright: #6be091;
+  --copper-green-dark: #2b5b54;
+  --copper-green-med-dark: #377464;
   --copper-green-black: #114537;
   --copper-blue-dark: #014a50;
   --copper-blue-black: #003135;
-  --copper-brown-med: #b87333;
-  --copper-brown-light: #cc8d67;
+  --copper-brown-med: #CB6D51;
+  --copper-brown-light: #E69e7f;
+  --copper-brown-dark: #5D2d24;
 
   /* === BASE THEME === */
   --color-bg-primary: var(--copper-green-black);
@@ -26,15 +28,15 @@
   --color-border: #374151;
   --color-border-light: #4b5563;
 
-  /* === BOROUGH COLORS === */
+  /* === BOROUGH COLORS ===  only shows in backend */
   --color-manhattan: #ef4444;
   --color-brooklyn: #22c55e;
   --color-queens: #3b82f6;
   --color-bronx: #f59e0b;
   --color-staten-island: #8b5cf6;
 
-  /* === UI COLORS === */
-  --color-primary: var(--color-green-dark);
+  /* === main button COLORS === */
+  --color-primary: var(--copper-green-dark);
   --color-primary-hover: var(--copper-green-dark);
   --color-primary-dark:var(--copper-green-med-dark);
   --color-secondary: var(--color-green-dark);
@@ -55,6 +57,11 @@
   --color-toggle-hard: var(--copper-brown-med);
   --color-toggle-easy: var(--copper-green-med);
 
+  /* == for main game play ==*/
+  --maingame-text:var(--copper-green-light);
+  --dark-bar:var(--copper-blue-black);
+  --next-button:var(--copper-green-med-dark);
+
   /* === STATE COLORS === */
   --color-success: #22c55e;
   --color-success-dark: #16a34a;
@@ -63,10 +70,13 @@
   --color-warning: #f59e0b;
 
   /* === GAME SPECIFIC === */
-  --color-guess-marker: #ef4444;
-  --color-actual-marker: #22c55e;
-  --color-distance-line: #f59e0b;
-  --color-marker-stroke: #ffffff;
+  
+  --color-guess-marker: var(--copper-brown-med);
+  --color-actual-marker: var(--copper-green-light);
+  --color-distance-line: var(--copper-brown-dark);
+  --color-marker-stroke: var(--copper-brown-dark);
+  --color-confirm-button: var(--copper-green-med-dark);
+  --color-confirm-button-hover: var(--copper-green-dark);
 
   /* === OVERLAYS === */
   --color-overlay-dark: rgba(0, 0, 0, 0.8);
@@ -75,6 +85,9 @@
   /* === DEV MODE === */
   --color-invalid: #666666;
   --color-invalid-stroke: #333333;
+
+  /* === TYPOGRAPHY === */
+  --font-family: "Helvetica", sans-serif;
 }
 
 /* Extend Tailwind with custom colors */
@@ -106,6 +119,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background-color: var(--color-bg-primary);
+  font-family: var(--font-family);
 }
 
 #root {

@@ -35,11 +35,11 @@ export function BoroughPicker({ onStart, onBack }: BoroughPickerProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-b from-[var(--color-bg-secondary)] to-var(--color-bg-primary) flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         <button
           onClick={onBack}
-          className="text-gray-400 hover:text-white mb-6 flex items-center gap-2"
+          className="text-[color:var(--maingame-text)]/80 hover:text-[color:var(--maingame-text)] mb-6 flex items-center gap-2"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -48,8 +48,8 @@ export function BoroughPicker({ onStart, onBack }: BoroughPickerProps) {
         </button>
 
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Endless Mode</h1>
-          <p className="text-gray-400">Select which boroughs to include</p>
+          <h1 className="text-3xl font-bold text-[color:var(--maingame-text)] mb-2">Endless Mode</h1>
+          <p className="text-[color:var(--color-text-secondary)]">Select which boroughs to include</p>
         </div>
 
         <div className="space-y-3 mb-6">
@@ -60,7 +60,7 @@ export function BoroughPicker({ onStart, onBack }: BoroughPickerProps) {
               className={`w-full p-4 rounded-xl flex items-center justify-between transition-all ${
                 selected.includes(borough.id)
                   ? 'text-white shadow-lg'
-                  : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                  : 'bg-[var(--color-bg-secondary)] text-gray-400 hover:bg-[var(--color-bg-primary)]'
               }`}
               style={selected.includes(borough.id) ? { backgroundColor: `var(${borough.cssVar})` } : undefined}
             >
@@ -74,33 +74,19 @@ export function BoroughPicker({ onStart, onBack }: BoroughPickerProps) {
           ))}
         </div>
 
-        <div className="flex gap-3 mb-8">
-          <button
-            onClick={selectMain}
-            className="flex-1 py-2 text-sm text-gray-400 hover:text-white border border-gray-700 rounded-lg hover:border-gray-500 transition-colors"
-          >
-            Main 4
-          </button>
-          <button
-            onClick={selectAll}
-            className="flex-1 py-2 text-sm text-gray-400 hover:text-white border border-gray-700 rounded-lg hover:border-gray-500 transition-colors"
-          >
-            Select All
-          </button>
-        </div>
 
         <button
           onClick={() => selected.length > 0 && onStart(selected)}
           disabled={selected.length === 0}
           className={`w-full py-4 rounded-xl font-semibold text-lg transition-all ${
             selected.length > 0
-              ? 'bg-purple-600 hover:bg-purple-700 text-white shadow-lg'
-              : 'bg-gray-800 text-gray-500 cursor-not-allowed'
+              ? 'bg-[var(--color-btn-daily)] hover:bg-[var(--color-btn-daily-hover)] text-white shadow-lg'
+              : 'bg-[var(--color-bg-secondary)] text-[color:var(--color-text-secondary)] cursor-not-allowed'
           }`}
         >
-          Start Game
+          <span className="text-[color:var(--color-text-primary)]">Start Game</span>
           {selected.length > 0 && (
-            <span className="text-purple-300 ml-2">
+            <span className="text-[color:var(--color-text-secondary)] ml-2">
               ({selected.length} borough{selected.length !== 1 ? 's' : ''})
             </span>
           )}

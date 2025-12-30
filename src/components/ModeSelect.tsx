@@ -27,7 +27,7 @@ export function ModeSelect({ onSelectDaily, onSelectEndless }: ModeSelectProps) 
           <h1 className="text-5xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>
             NewYawkr
           </h1>
-          <p className="text-2xl" style={{ color: 'var(--color-text-secondary)' }}>🗽</p>
+         
           <p className="mt-4" style={{ color: 'var(--color-text-secondary)' }}>
             Because who cares about anywhere else?
           </p>

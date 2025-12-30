@@ -39,14 +39,6 @@ export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapse
     return '🟥';
   };
 
-  const getOverallMessage = () => {
-    if (percentage >= 90) return "You're a true New Yorker! 🗽";
-    if (percentage >= 75) return 'Excellent navigation skills!';
-    if (percentage >= 60) return 'Pretty good for the Big Apple!';
-    if (percentage >= 40) return 'Not bad, keep exploring!';
-    return 'Time to hit the streets more!';
-  };
-
   const handleShare = async () => {
     const shareText = generateShareText(guesses, totalScore, getTodayString(), hardMode, elapsedTime ?? undefined);
     const success = await copyToClipboard(shareText);
@@ -63,24 +55,24 @@ export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapse
   );
 
   return (
-    <div className="fixed inset-0 bg-black/90 flex items-center justify-center overflow-y-auto z-50 p-4">
-      <div className="bg-gray-900 rounded-xl max-w-md w-full  shadow-2xl">
+    <div className="fixed inset-0 bg-[var(--color-bg-secondary)]/90 flex items-start justify-center overflow-y-auto z-50 p-4">
+      <div className="bg-[var(--color-bg-primary)] rounded-xl max-w-md w-full  shadow-2xl">
         <div className="p-6 text-center">
-          <h1 className="text-3xl font-bold text-white mb-2">
-            {mode === 'daily' ? "Today's Results" : 'Game Over'}
+          <h1 className="text-3xl font-bold text-[color:var(--maingame-text)] mb-2">
+            {mode === 'daily' ? "Results" : 'Game Over'}
           </h1>
 
-          <p className="text-gray-400 mb-6">{getOverallMessage()}</p>
+ 
 
-          <div className="bg-gray-800 rounded-xl p-6 mb-6">
-            <p className="text-gray-400 text-sm mb-1">Final Score</p>
-            <p className="text-4xl font-bold text-white">
+          <div className="bg-[var(--color-bg-secondary)] rounded-xl p-6 mb-6">
+            <p className="text-[color:var(--color-text-secondary)] text-sm mb-1">Final Score</p>
+            <p className="text-4xl font-bold text-[color:var(--color-text-primary)]">
               {formatScore(totalScore)}
-              <span className="text-xl text-gray-500">/{formatScore(maxScore)}</span>
+              <span className="text-xl text-[color:var(--color-text-secondary)]">/{formatScore(maxScore)}</span>
             </p>
-            <p className="text-2xl text-gray-400 mt-1">{percentage}%</p>
+            <p className="text-2xl text-[color:var(--color-text-secondary)] mt-1">{percentage}%</p>
             {elapsedTime && (
-              <p className="text-gray-500 text-sm mt-2">
+              <p className="text-[color:var(--color-text-secondary)] text-sm mt-2">
                 Time: {formatTime(elapsedTime)}
               </p>
             )}
@@ -89,7 +81,7 @@ export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapse
           {/* Emoji grid - 4 rows (boroughs) x 3 columns */}
           <div className="mb-6">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <p className="text-gray-400 text-sm">Your Performance</p>
+              <p className="text-[color:var(--color-text-secondary)] text-sm">Your Performance</p>
               {!hardMode && (
                 <span className="text-xs bg-orange-600/30 text-orange-300 px-2 py-0.5 rounded">
                   Easy Mode
@@ -100,7 +92,7 @@ export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapse
               <div className="flex flex-col items-center gap-1">
                 {guessesByBorough.map((boroughGuesses, i) => (
                   <div key={boroughOrder[i]} className="flex gap-1 text-2xl" title={boroughOrder[i]}>
-                    <span className="py-1 capitalize text-white">{boroughOrder[i]}: </span>
+                    <span className="py-1 capitalize text-[color:var(--color-text-primary)]">{boroughOrder[i]}: </span>
                     {boroughGuesses.map((g, j) => (
                       <span key={j} title={`${boroughOrder[i]}: ${formatScore(g.score)} pts`}>
                         {getScoreEmoji(g.score)}
@@ -121,10 +113,10 @@ export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapse
           </div>
 
           {/* Round breakdown */}
-          <div className="bg-gray-800 rounded-lg p-4 mb-6 max-h-48 overflow-y-auto">
+          <div className="bg-[var(--color-bg-secondary)] rounded-lg p-4 mb-6 max-h-48 overflow-y-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-gray-400">
+                <tr className="text-[color:var(--color-text-secondary)]">
                   <th className="text-left py-1">Round</th>
                   <th className="text-left py-1">Borough</th>
                   <th className="text-right py-1">Score</th>
@@ -132,7 +124,7 @@ export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapse
               </thead>
               <tbody>
                 {guesses.map((g, i) => (
-                  <tr key={i} className="text-white">
+                  <tr key={i} className="text-[color:var(--color-text-primary)]">
                     <td className="py-1">{i + 1}</td>
                     <td className="py-1 capitalize">{g.location.borough.replace('_', ' ')}</td>
                     <td className="py-1 text-right">{formatScore(g.score)}</td>
@@ -147,7 +139,7 @@ export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapse
             {mode === 'daily' && (
               <button
                 onClick={handleShare}
-                className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
+                className="w-full bg-[var(--color-btn-daily)] hover:bg-[var(--color-btn-daily-hover)] text-[color:var(--color-text-primary)] font-semibold py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
               >
                 {copied ? (
                   <>
@@ -170,7 +162,7 @@ export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapse
             {mode === 'endless' && onPlayAgain && (
               <button
                 onClick={onPlayAgain}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors"
+                className="w-full bg-[var(--color-bg-secondary)] hover:bg-[var(--color-bg-secondary)] text-[color:var(--color-text-primary)] font-semibold py-3 rounded-lg transition-colors"
               >
                 Play Again
               </button>
@@ -178,14 +170,14 @@ export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapse
 
             <button
               onClick={onBackToMenu}
-              className="w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 rounded-lg transition-colors"
+                className="w-full bg-[var(--color-bg-secondary)] hover:bg-[var(--color-bg-secondary)] text-[color:var(--color-text-primary)] font-semibold py-3 rounded-lg transition-colors"
             >
               Back to Menu
             </button>
           </div>
 
           {mode === 'daily' && (
-            <p className="text-gray-500 text-sm mt-4">
+            <p className="text-[color:var(--color-text-secondary)] text-sm mt-4">
               Come back tomorrow for a new challenge!
             </p>
           )}

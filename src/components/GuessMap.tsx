@@ -104,11 +104,11 @@ export function GuessMap({ onGuessSelect, selectedGuess, onConfirm, disabled }: 
         map: mapRef.current,
         icon: {
           path: google.maps.SymbolPath.CIRCLE,
-          scale: 10,
+          scale: 5,
           fillColor: getCSSColor('--color-guess-marker'),
           fillOpacity: 1,
           strokeColor: getCSSColor('--color-marker-stroke'),
-          strokeWeight: 2,
+          strokeWeight: 1,
         },
       });
     }
@@ -152,7 +152,7 @@ export function GuessMap({ onGuessSelect, selectedGuess, onConfirm, disabled }: 
         {selectedGuess && !disabled && (
           <button
             onClick={onConfirm}
-            className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg shadow-lg transition-colors"
+            className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-[var(--color-confirm-button)] hover:bg-[var(--color-confirm-button-hover)] text-[color:var(--color-text-primary)] font-semibold px-6 py-2 rounded-lg shadow-lg transition-colors"
           >
             Confirm Guess
           </button>

@@ -170,11 +170,11 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
   return (
     <div className="h-screen bg-gray-900 relative overflow-hidden">
       {/* Header */}
-      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/70 to-transparent p-4">
+      <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-[var(--dark-bar)] to-transparent p-5 pb-15">
         <div className="flex items-center justify-between max-w-screen-xl mx-auto">
           <button
             onClick={onExit}
-            className="text-white/80 hover:text-white flex items-center gap-2"
+            className="text-[color:var(--maingame-text)]/80 hover:text-[color:var(--maingame-text)] flex items-center gap-2"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -183,17 +183,17 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
           </button>
 
           <div className="text-center">
-            <h1 className="text-white font-bold text-lg">NewYawkr</h1>
-            <p className="text-white/60 text-sm">
+            <h1 className="text-[color:var(--maingame-text)] font-bold text-lg">NewYawkr</h1>
+            <p className="text-[color:var(--maingame-text)]/60 text-sm">
               Round {gameState.currentRound + 1} of {mode === 'daily' ? 12 : '∞'}
             </p>
           </div>
 
           <div className="text-right">
-            <p className="text-white font-semibold">
+            <p className="text-[color:var(--maingame-text)] font-semibold">
               {gameState.totalScore.toLocaleString()}
             </p>
-            <p className="text-white/60 text-xs">points</p>
+            <p className="text-[color:var(--maingame-text)]/60 text-xs">points</p>
           </div>
         </div>
       </div>
