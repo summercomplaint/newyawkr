@@ -13,6 +13,7 @@ interface GameProps {
   boroughs?: Borough[];
   hardMode?: boolean;
   onExit: () => void;
+  onPlayEndless?: () => void;
 }
 
 type GamePhase = 'viewing' | 'results' | 'final';
@@ -20,7 +21,7 @@ type GamePhase = 'viewing' | 'results' | 'final';
 const MAX_RETRIES = 10; // Maximum attempts to find a location with Street View
 const HARD_MODE_TIME_LIMIT = 60; // 2 minutes in seconds
 
-export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProps) {
+export function Game({ mode, boroughs = [], hardMode = false, onExit, onPlayEndless }: GameProps) {
   const {
     gameState,
     currentGuess,
@@ -194,7 +195,7 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
 
   if (!gameState || isGenerating) {
     return (
-      <div className="h-screen bg-gray-900 flex items-center justify-center">
+      <div className="h-dvh bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
           <p className="text-white text-lg">
@@ -212,7 +213,7 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
   const totalRounds: number | 'endless' = mode === 'daily' ? 12 : 'endless';
 
   return (
-    <div className="h-screen bg-gray-900 relative overflow-hidden">
+    <div className="h-dvh bg-gray-900 relative overflow-hidden">
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-[var(--dark-bar)] to-transparent p-5 pb-15">
         <div className="flex items-center justify-between max-w-screen-xl mx-auto">
@@ -234,8 +235,8 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
             {/* Timer for hard mode */}
             {hardMode && phase === 'viewing' && (
               <p
-                className={`text-sm font-mono font-bold mt-1 ${
-                  roundTimeLeft <= 30 ? 'text-[color:var(--color-error)]' : 'text-[color:var(--maingame-text)]'
+                className={` font-mono font-bold mt-1 text-lg ${
+                  roundTimeLeft <= 30 ? 'text-[color:var(--color-error)]' : ' text-[0.875rem] text-[color:var(--maingame-text)]'
                 }`}
               >
                 {Math.floor(roundTimeLeft / 60)}:{(roundTimeLeft % 60).toString().padStart(2, '0')}
@@ -314,6 +315,7 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit }: GameProp
           elapsedTime={elapsedTime}
           onPlayAgain={mode === 'endless' ? handlePlayAgain : undefined}
           onBackToMenu={onExit}
+          onPlayEndless={onPlayEndless}
         />
       )}
     </div>

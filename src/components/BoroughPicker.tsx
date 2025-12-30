@@ -27,7 +27,7 @@ export function BoroughPicker({ onStart, onBack }: BoroughPickerProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[var(--color-bg-secondary)] to-var(--color-bg-primary) flex items-center justify-center p-4">
+    <div className="min-h-dvh bg-gradient-to-b from-[var(--color-bg-secondary)] to-var(--color-bg-primary) flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         <button
           onClick={onBack}

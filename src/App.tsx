@@ -91,7 +91,7 @@ function App() {
   // Show error state if Maps failed to load
   if (mapsError) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+      <div className="min-h-dvh bg-gray-900 flex items-center justify-center p-4">
         <div className="max-w-md text-center">
           <h1 className="text-3xl font-bold text-white mb-4">NewYawkr 🗽</h1>
           <div className="bg-red-900/50 border border-red-500 rounded-lg p-4 mb-6">
@@ -116,7 +116,7 @@ function App() {
   // Show loading state while Maps loads
   if (!mapsLoaded) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-dvh bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-white mb-4">NewYawkr 🗽</h1>
           <p className="text-gray-400">Loading maps...</p>
@@ -146,6 +146,7 @@ function App() {
           mode="daily"
           hardMode={hardMode}
           onExit={handleExit}
+          onPlayEndless={() => setScreen('borough-picker')}
         />
       )}
 

@@ -19,13 +19,13 @@ export function ModeSelect({ onSelectDaily, onSelectEndless }: ModeSelectProps) 
 
   const getDailyButtonText = () => {
     if (!dailyProgress) return 'Play';
-    if (dailyProgress.isComplete) return 'View Results';
+    if (dailyProgress.isComplete) return 'Final Score';
     return `Continue (${dailyProgress.roundsPlayed}/12)`;
   };
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-4"
+      className="h-dvh flex items-center justify-center p-4 relative overflow-hidden"
       style={{ background: `linear-gradient(to bottom, var(--color-bg-primary), var(--color-bg-secondary))` }}
     >
       <div className="max-w-md w-full">
@@ -103,8 +103,8 @@ export function ModeSelect({ onSelectDaily, onSelectEndless }: ModeSelectProps) 
               </div>
               <div className="text-right">
                 <span
-                  className="inline-block px-3 py-1 rounded-full text-sm font-medium"
-                  style={{ backgroundColor: 'var(--color-btn-daily-muted)', color: 'var(--color-text-primary)' }}
+                  className="inline-block px-3 py-3 rounded-full text-sm font-medium text-center"
+                  style={{ backgroundColor: 'var(--color-primary)', color: 'var(--color-text-primary)' }}
                 >
                   {getDailyButtonText()}
                 </span>
@@ -133,7 +133,7 @@ export function ModeSelect({ onSelectDaily, onSelectEndless }: ModeSelectProps) 
               <div className="text-right">
                 <span
                   className="inline-block px-3 py-1 rounded-full text-sm font-medium"
-                  style={{ backgroundColor: 'var(--color-btn-endless-muted)', color: 'var(--color-text-primary)' }}
+                  style={{ backgroundColor: 'var(--color-primary)', color: 'var(--color-text-primary)' }}
                 >
                   Play
                 </span>

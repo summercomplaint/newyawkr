@@ -8,14 +8,7 @@ function getScoreEmoji(score: number): string {
 }
 
 // Get star rating based on total score (out of 60000 for 12 rounds)
-function getStarRating(totalScore: number): string {
-  const percentage = totalScore / 60000;
-  if (percentage >= 0.9) return '⭐⭐⭐⭐⭐';
-  if (percentage >= 0.75) return '⭐⭐⭐⭐';
-  if (percentage >= 0.6) return '⭐⭐⭐';
-  if (percentage >= 0.4) return '⭐⭐';
-  return '⭐';
-}
+
 
 // Format date for display
 function formatDate(dateString: string): string {
@@ -44,10 +37,10 @@ export function generateShareText(
   hardMode: boolean = false,
   elapsedTime?: number
 ): string {
-  const stars = getStarRating(totalScore);
+  
   const maxScore = guesses.length * 5000;
-  const modeLabel = hardMode ? '🔒 Hard' : '🚶 Easy';
-  const timeStr = elapsedTime ? ` ⏱️ ${formatTime(elapsedTime)}` : '';
+  const modeLabel = hardMode ? '(Hard Mode)' : '(Easy Mode)';
+  const timeStr = elapsedTime ? ` ${formatTime(elapsedTime)}` : '';
 
   // For daily mode (12 guesses), organize as 4 rows of 3 (by borough) with labels
   let emojiGrid: string;
@@ -70,9 +63,9 @@ export function generateShareText(
     emojiGrid = guesses.map(g => getScoreEmoji(g.score)).join('');
   }
 
-  return `NewYawkr 🗽 ${formatDate(dateString)} ${modeLabel}${timeStr}
-Score: ${totalScore.toLocaleString()}/${maxScore.toLocaleString()} ${stars}
-
+  return `NewYawkr 🗽 ${formatDate(dateString)} ${modeLabel}
+Score: ${totalScore.toLocaleString()}/${maxScore.toLocaleString()} 
+Time: ${timeStr}
 ${emojiGrid}
 
 https://newyawkr.com`;

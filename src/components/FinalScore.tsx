@@ -12,6 +12,7 @@ interface FinalScoreProps {
   elapsedTime?: number | null;
   onPlayAgain?: () => void;
   onBackToMenu: () => void;
+  onPlayEndless?: () => void;
 }
 
 // Format milliseconds to mm:ss or hh:mm:ss
@@ -27,7 +28,7 @@ function formatTime(ms: number): string {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
-export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapsedTime, onPlayAgain, onBackToMenu }: FinalScoreProps) {
+export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapsedTime, onPlayAgain, onBackToMenu, onPlayEndless }: FinalScoreProps) {
   const [copied, setCopied] = useState(false);
 
   const maxScore = guesses.length * 5000;
@@ -179,6 +180,14 @@ export function FinalScore({ guesses, totalScore, mode, hardMode = false, elapse
           {mode === 'daily' && (
             <p className="text-[color:var(--color-text-secondary)] text-sm mt-4">
               Come back tomorrow for a new challenge!
+              {onPlayEndless && (
+                <button
+                  onClick={onPlayEndless}
+                  className="block mx-auto mt-1 text-[color:var(--color-text-primary)] hover:underline cursor-pointer"
+                >
+                  (or play endless mode)
+                </button>
+              )}
             </p>
           )}
         </div>

@@ -118,8 +118,8 @@ export function GuessMap({ onGuessSelect, selectedGuess, onConfirm, disabled }: 
     <div
       className={`absolute transition-all duration-300 z-10 ${
         isExpanded
-          ? 'bottom-4 right-4 w-[400px] h-[350px]'
-          : 'bottom-4 right-4 w-[250px] h-[200px]'
+          ? 'bottom-4 right-4 left-4 sm:left-auto sm:w-[400px] h-[350px] max-w-[calc(100vw-2rem)]'
+          : 'bottom-4 right-4 w-[200px] sm:w-[250px] h-[180px] sm:h-[200px]'
       }`}
     >
       <div className="relative w-full h-full rounded-lg overflow-hidden shadow-xl border-2 border-white/20">
@@ -152,7 +152,7 @@ export function GuessMap({ onGuessSelect, selectedGuess, onConfirm, disabled }: 
         {selectedGuess && !disabled && (
           <button
             onClick={onConfirm}
-            className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-[var(--color-confirm-button)] hover:bg-[var(--color-confirm-button-hover)] text-[color:var(--color-text-primary)] font-semibold px-6 py-2 rounded-lg shadow-lg transition-colors"
+            className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-[var(--color-confirm-button)] hover:bg-[var(--color-confirm-button-hover)] text-[color:var(--color-text-primary)] font-semibold px-6 py-2 rounded-lg shadow-lg transition-colors whitespace-nowrap"
           >
             Confirm Guess
           </button>

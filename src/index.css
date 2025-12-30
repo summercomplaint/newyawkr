@@ -65,7 +65,7 @@
   /* === STATE COLORS === */
   --color-success: #22c55e;
   --color-success-dark: #16a34a;
-  --color-error: #ef4444;
+  --color-error: var(--copper-brown-light);
   --color-error-dark: #dc2626;
   --color-warning: #f59e0b;
 
@@ -117,11 +117,13 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background-color: var(--color-bg-primary);
   font-family: var(--font-family);
 }
 
 #root {
-  min-height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 }
