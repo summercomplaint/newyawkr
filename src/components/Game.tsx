@@ -68,19 +68,18 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit, onPlayEndl
     if (!timerActive || !hardMode) return;
 
     const interval = setInterval(() => {
-      setRoundTimeLeft(prev => {
-        if (prev <= 1) {
-          // Time's up! Auto-submit
-          clearInterval(interval);
-          handleConfirmGuessRef.current();
-          return 0;
-        }
-        return prev - 1;
-      });
+      setRoundTimeLeft(prev => (prev <= 1 ? 0 : prev - 1));
     }, 1000);
 
     return () => clearInterval(interval);
   }, [timerActive, hardMode]);
+
+  // Auto-submit when timer hits zero
+  useEffect(() => {
+    if (roundTimeLeft === 0 && timerActive && hardMode && phase === 'viewing') {
+      handleConfirmGuessRef.current();
+    }
+  }, [roundTimeLeft, timerActive, hardMode, phase]);
 
   // Initialize game on mount - only once
   useEffect(() => {
@@ -138,7 +137,7 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit, onPlayEndl
 
     setLastGuess(newGuess);
     setTimerActive(false);
-    confirmGuess(mode === 'endless' ? boroughsRef.current : undefined);
+    confirmGuess(mode === 'endless' ? boroughsRef.current : undefined, timedOut ? guessLocation : undefined);
     setPhase('results');
   }, [gameState, currentGuess, confirmGuess, mode]);
 
@@ -160,7 +159,7 @@ export function Game({ mode, boroughs = [], hardMode = false, onExit, onPlayEndl
       setIsRetrying(false);
       setRoundTimeLeft(HARD_MODE_TIME_LIMIT); // Reset timer for next round
     }
-  }, [gameState?.isComplete, gameState?.currentRound, mode, startTime]);
+  }, [gameState,gameState?.isComplete, gameState?.currentRound, mode, startTime]);
 
   const handlePlayAgain = useCallback(() => {
     resetGame();

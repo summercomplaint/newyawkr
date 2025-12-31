@@ -51,9 +51,9 @@ export function useGameState() {
     setCurrentGuess({ lat, lng });
   }, []);
 
-  const confirmGuess = useCallback((endlessBoroughs?: Borough[]) => {
+  const confirmGuess = useCallback((endlessBoroughs?: Borough[], overrideGuess?: { lat: number; lng: number }) => {
     const gs = gameStateRef.current;
-    const cg = currentGuessRef.current;
+    const cg = overrideGuess ?? currentGuessRef.current;
     if (!gs || !cg) return;
 
     const currentLocation = gs.locations[gs.currentRound];
