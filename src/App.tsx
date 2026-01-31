@@ -126,7 +126,8 @@ function App() {
   }
 
   return (
-    <>
+    <><script data-goatcounter="https://summercomplaint.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
       {screen === 'menu' && (
         <ModeSelect
           onSelectDaily={handleSelectDaily}
